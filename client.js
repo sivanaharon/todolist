@@ -22,6 +22,7 @@ function render(todo) {
     const listItem = document.createElement('li');
     const listItemText = document.createTextNode(todo.title);
     listItem.appendChild(listItemText);
+    listItem.className = 'list-group-item'
     list.append(listItem);
 }
 

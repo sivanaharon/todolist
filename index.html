@@ -7,13 +7,40 @@
         <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
           </head>
     <body>
+    <div class="container">
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h1><p class="text-center">Let's Get Productive</p></h1>
+        </div>
+    </div>
+         <div class="row">
+        <div class="col-md-12">
+           <h5>  <p class="text-center">Create & manage your to-do list</p></h5>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-12">
+
+          <ul class="list-group" id="todo-list"></ul>
+</div>
+        </div>
+        <br>
     <div class="row">
     <div class="col-md-12">
-        <input id="todo-input" type="text" placeholder="Feed the cat" autofocus>
-        <button type="button" onclick="add()">Make</button>
-        <ul id="todo-list"></ul>
+        <div class="input-group">
+        <input class='form-control input-md' id="todo-input" type="text" placeholder="Feed the cat" autofocus="">
+            <div class="input-group-append">
+        <button class="btn btn-success" type="button" onclick="add()">Make</button>
+                </div>
+            </div>
+
         </div>
         </div>
+        </div>
+    </div>
+
     </body>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
