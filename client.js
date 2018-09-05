@@ -67,12 +67,12 @@ server.on('load', (todos) => {
     $("#todo-list").text("")
     todos.forEach((todo) => render(todo));
     try {
-        window.localStorage.set('todos', JSON.stringify(todos));
+        window.localStorage['todos']= JSON.stringify(todos);
     }catch(err){
-        //pass
+        console.log(err)
     }
     $(".btn").removeClass('disabled')
-    $("input").removeClass('disabled')
+    $("input").prop("disabled", false);
     $("#connection-alert").hide()
 
 });
@@ -110,13 +110,14 @@ server.on('complete-all',()=>{
 server.on('connect_error',()=>{
     $("#todo-list").text("")
 try {
-    todos = JSON.parse(window.localStorage.get('todos'))
+    todos = JSON.parse(window.localStorage['todos'])
     todos.forEach((todo) => render(todo));
 }catch(err){
+
         //pass
 }
     $(".btn").addClass('disabled')
-    $("input").addClass('disabled')
+    $("input").prop("disabled", true);
     $("#connection-alert").show()
 
 })
