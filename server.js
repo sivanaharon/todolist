@@ -33,13 +33,17 @@ server.on('connection', (client) => {
 
         server.emit('load-new',newTodo)
     });
+    client.on('remove-all', ()=>{
+        server.data = [];
+        server.emit('remove-all');
+    })
 
     client.on('remove', (t) => {
         // Make a new todo
 
         server.data.map((todo)=>{
             if(todo.title===t.title){
-                server.data.splice( server.data.indexOf(todo), 1 )
+                server.data.splice( server.data.indexOf(todo), 1 );
             }
         })
 
@@ -52,12 +56,23 @@ server.on('connection', (client) => {
         server.data.map((todo)=>{
             if(todo.title===t.title){
                 todo.completed=true
-            } 
+            }
         })
 
 
 
         server.emit('complete',t)
+    });
+     client.on('complete-all', (t) => {
+        // Make a new todo
+
+        server.data.map((todo)=>{
+            todo.completed=true
+        })
+
+
+
+        server.emit('complete-all',t)
     });
     // Send the DB downstream on connect
     reloadTodos();

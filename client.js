@@ -36,6 +36,12 @@ function add() {
     // TODO: refocus the element
 }
 
+function deleteAll(){
+    server.emit('remove-all',{});
+}
+function completeAll(){
+    server.emit('complete-all',{});
+}
 function complete(title){
     server.emit('complete',{title: title})
 }
@@ -78,3 +84,14 @@ server.on('remove', (todo)=>{
         }
     })
 });
+server.on('remove-all',()=>{
+    console.log('remove-all')
+    $("#todo-list").text("")
+})
+
+server.on('complete-all',()=>{
+    $('li').each(function(index,item) {
+      $(item).find('.btn-success').replaceWith('<button class="btn btn-primary disabled" type="button">DONE!</button>')
+    })
+
+})
