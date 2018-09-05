@@ -6,16 +6,16 @@ const list = document.getElementById('todo-list');
 
 list_item_template = '<div class="row">'+
         '<div class="col-sm-8">'+
-            '<p>{{title}}</p>'+
+            '<p class="title">{{title}}</p>'+
         '</div>'+
         '<div class="col-sm-4">'+
-        '<div class="btn-group">'+
+        '<div class="btn-group float-right">'+
     '{{#if completed}}'+
-    '<button class="btn btn-primary" type="button">DONE!</button>'+
+    '<button class="btn btn-primary disabled" type="button">DONE!</button>'+
 '{{else}}'+
             '<button class="btn btn-success" type="button" onclick="complete(\'{{title}}\')">Complete</button>'+
     '{{/if}}'+
-            '<button class="btn btn-danger" type="button" onclick="complete(\'{{title}}\')" >X</button>'+
+            '<button class="btn btn-danger" type="button" onclick="remove(\'{{title}}\')" >X</button>'+
     '</div>'+
     '</div>'+
     '</div>'
@@ -36,14 +36,18 @@ function add() {
     // TODO: refocus the element
 }
 
-function complete(){
-
+function complete(title){
+    server.emit('complete',{title: title})
 }
 
+function remove(title){
+    server.emit('remove',{title:title})
+
+//TODO
+}
 function render(todo) {
     const container = document.createElement('li');
     container.className = 'list-group-item';
-
     const listItem = Handlebars.compile(list_item_template);
     const compiledItem = listItem(todo);
     container.innerHTML = compiledItem;
@@ -59,3 +63,18 @@ server.on('load', (todos) => {
 server.on('load-new', (todo) => {
     render(todo)
 })
+
+server.on('complete', (todo)=>{
+    $('li').each(function(index,item){
+        if($(item).find('p').text()===todo.title){
+            $(item).find('.btn-success').replaceWith('<button class="btn btn-primary disabled" type="button">DONE!</button>')
+        }
+    })
+});
+server.on('remove', (todo)=>{
+    $('li').each(function(index,item){
+        if($(item).find('p').text()===todo.title){
+            $(item).remove()
+        }
+    })
+});
