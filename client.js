@@ -9,7 +9,7 @@ function add() {
 
     // Emit the new todo as some data to the server
     server.emit('make', {
-        titlé : input.value
+        title: input.value
     });
 
     // Clear the input
@@ -18,11 +18,10 @@ function add() {
 }
 
 function render(todo) {
-    console.log(todo);
     const listItem = document.createElement('li');
     const listItemText = document.createTextNode(todo.title);
     listItem.appendChild(listItemText);
-    listItem.className = 'list-group-item'
+    listItem.className = 'list-group-item';
     list.append(listItem);
 }
 
@@ -31,3 +30,7 @@ function render(todo) {
 server.on('load', (todos) => {
     todos.forEach((todo) => render(todo));
 });
+
+server.on('load-new', (todo)=>{
+    render(todo)
+})
